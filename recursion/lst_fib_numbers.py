@@ -16,8 +16,10 @@ N = int(input())
 
 
 def fib_rec(n, f=[]):
-    if len(f) < n:
-        f.append(1 if len(f) < 2 else f[-1] + f[-2])
-        fib_rec(n)
-
-    return f
+    if n > len(f):
+        if n <= 2:
+            f += [1, 1]
+        else:
+            fib_rec(n - 1)
+            f.append(f[-2] + f[-1])
+    return f[: n]
