@@ -12,9 +12,7 @@ n = int(input())
 
 
 def fact_rec(n):
-    if n < 1:
-        return 1
-    return n * fact_rec(n - 1)
+    return n * fact_rec(n - 1) if n else 1
 
 
 print(fact_rec(n))
