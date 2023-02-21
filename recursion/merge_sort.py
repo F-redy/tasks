@@ -12,29 +12,20 @@
 # -6 0 1 1 3 8 11
 
 
-def merge_two_list(a, b):
-    c = []
-    i = j = 0
-    len_a, len_b = len(a), len(b)
-    while i < len_a and j < len_b:
-        if a[i] < b[j]:
-            c.append(a[i])
-            i += 1
-        else:
-            c.append(b[j])
-            j += 1
-    c += a[i:] + b[j:]
-    return c
+def merge_two_lists(a, b):
+    res = []
+    while a and b:
+        res += [a.pop(0) if a[0] < b[0] else b.pop(0)]
+    return res + a + b
 
 
-def merge_sort(lst):
-    if len(lst) == 1:
-        return lst
-    middle = len(lst) // 2
-    left = merge_sort(lst[:middle])
-    right = merge_sort(lst[middle:])
-    return merge_two_list(left, right)
+def merge_sort(l):
+    if len(l) == 1:
+        return l
+    mid = len(l) // 2
+    a, b = l[:mid], l[mid:]
+    return merge_two_lists(merge_sort(a), merge_sort(b))
 
 
-s = list(map(int, input().split()))
-print(*merge_sort(s))
+l = [int(i) for i in input().split()]
+print(*merge_sort(l))
