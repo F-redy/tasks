@@ -17,19 +17,8 @@
 # Для отбора нужных значений формальному параметру key следует передавать
 # соответствующие определения анонимной функции.
 
-def filter_lst(it, key=None):
-    if key is None:
-        return tuple(it)
-
-    res = ()
-    for x in it:
-        if key(x):
-            res += (x,)
-
-    return res
-
+filter_lst = lambda it, key=None: tuple(it if key is None else filter(key, it))
 
 lst = list(map(int, input().split()))
-lambda_list = [None, lambda x: x < 0, lambda x: x >= 0, lambda x: x in (1, 2, 3)]
-for func in lambda_list:
-    print(*filter_lst(lst, func))
+for filter_func in (None, lambda x: x < 0, lambda x: x >= 0, lambda x: 2 < x < 6):
+    print(*filter_lst(lst, key=filter_func))
