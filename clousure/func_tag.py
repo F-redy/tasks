@@ -14,8 +14,9 @@
 # Sample Output:
 # <div>Сергей Балакирев</div>
 
-def func_tag(tag):
-    def func_string(string):
+
+def func_tag(tag: str):
+    def func_string(string: str) -> str:
         return f"<{tag}>{string}</{tag}>"
 
     return func_string
