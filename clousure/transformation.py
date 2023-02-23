@@ -13,12 +13,14 @@
 # Sample Output:
 # [-5, 6, 8, 11, 0, 111, -456, 3]
 
-def parse(tp: str = 'list'):
-    def inner(s: str) -> tuple[int] | list[int]:
-        return (tuple, list)[tp == 'list'](map(int, s.split()))
+def parse(tp: str):
+    def inner(lst_numbers: list) -> tuple[int] | list[int]:
+        return lst_numbers if tp == 'list' else tuple(lst_numbers)
 
     return inner
 
 
-pr = parse(input())
-print(pr(input()))
+tp_obj = input()
+lst = list(map(int, input().split()))
+func = parse(tp_obj)
+print(func(lst))
