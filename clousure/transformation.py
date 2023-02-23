@@ -15,7 +15,7 @@
 
 def parse(tp: str):
     def inner(lst_numbers: list) -> tuple[int] | list[int]:
-        return lst_numbers if tp == 'list' else tuple(lst_numbers)
+        return (tuple(lst_numbers), lst_numbers)[tp == 'list']
 
     return inner
 
