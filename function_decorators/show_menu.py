@@ -37,4 +37,5 @@ def get_menu(s: str) -> list:
     return s.split()
 
 
-get_menu('Главная Добавить Удалить Выйти')
+s = input()
+get_menu(s)
