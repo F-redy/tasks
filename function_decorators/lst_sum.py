@@ -33,5 +33,6 @@ def into_lst_sum(string: str) -> int:
     return sum(map(int, string.split()))
 
 
-s = input()
-print(into_lst_sum(s))
+if __name__ == '__main__':
+    s = input()
+    print(into_lst_sum(s))

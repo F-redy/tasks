@@ -32,5 +32,6 @@ def _lower(string: str) -> str:
     return string.lower()
 
 
-s = input()
-print(_lower(s))
+if __name__ == '__main__':
+    s = input()
+    print(_lower(s))

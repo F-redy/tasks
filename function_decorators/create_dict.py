@@ -29,8 +29,9 @@ def create_lst(*args):
     return [s.split() for s in args]
 
 
-first = input()
-second = input()
+if __name__ == '__main__':
+    first = input()
+    second = input()
 
-d = create_lst(first, second)
-print(*sorted(d.items()))
+    d = create_lst(first, second)
+    print(*sorted(d.items()))

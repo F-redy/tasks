@@ -28,4 +28,5 @@ def get_sq(width, height):
     return width * height
 
 
-get_sq(8, 11)
+if __name__ == '__main__':
+    get_sq(8, 11)

@@ -37,5 +37,6 @@ def get_menu(s: str) -> list:
     return s.split()
 
 
-s = input()
-get_menu(s)
+if __name__ == '__main__':
+    s = input()
+    get_menu(s)

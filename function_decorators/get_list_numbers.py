@@ -32,4 +32,5 @@ def get_list(string: str) -> list[int]:
     return list(map(int, string.split()))
 
 
-[print(obj) for obj in [get_list(input()), get_list.__name__, get_list.__doc__]]
+if __name__ == '__main__':
+    [print(obj) for obj in [get_list(input()), get_list.__name__, get_list.__doc__]]

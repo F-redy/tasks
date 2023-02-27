@@ -26,6 +26,7 @@ def get_list(string: str) -> list[int]:
     return list(map(int, string.split()))
 
 
-s = input()
-lst = get_list(s)
-print(*lst)
+if __name__ == '__main__':
+    s = input()
+    lst = get_list(s)
+    print(*lst)

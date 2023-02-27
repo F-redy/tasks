@@ -68,5 +68,6 @@ def init_transliterate(string: str) -> str:
     return transliterate(string.lower(), t)
 
 
-s = input()
-print(init_transliterate(s))
+if __name__ == '__main__':
+    s = input()
+    print(init_transliterate(s))
