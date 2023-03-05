@@ -38,3 +38,7 @@ def fib1(n: int) -> Generator[int, None, None]:
 num = int(input())
 print(*fib(num))
 print(*list(fib1(num)))
+
+# для больших чисел
+for num in fib1(num):
+    print(num, end=' ')
