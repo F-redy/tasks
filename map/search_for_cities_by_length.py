@@ -9,12 +9,11 @@
 # Харьков - Бахмут Одесса - Мариуполь
 
 # v1
-def map_cities(cities_string: str):
+def map_cities(cities_string: str) -> list[str]:
     return [('-', city)[len(city) > 5] for city in cities_string.split()]
 
 
 print(*map_cities(input()))
-
 
 # v2
 cities = map(lambda x: ('-', x)[len(x) > 5], input().split())
