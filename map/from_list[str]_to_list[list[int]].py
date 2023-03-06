@@ -14,7 +14,7 @@ import sys
 
 
 def check_integers_only(lst: list[list]) -> bool:
-    return all([lambda line: all([lambda x: type(x) == int, line]), lst])
+    return all(all(isinstance(x, int) for x in row) for row in lst)
 
 
 lst_in = list(map(str.strip, sys.stdin.readlines()))  # остановка ввода ctrl + D
