@@ -27,3 +27,8 @@ lst_in = list(map(str.strip, sys.stdin.readlines()))
 items_dict = {item: int(weight) for item, weight in [row.split('=') for row in lst_in]}
 
 print(*sorted(items_dict, key=lambda weight: -items_dict[weight]))
+
+# v2
+items_dct = dict(line.split("=") for line in lst_in)
+
+print(*sorted(items_dct, key=lambda x: -int(items_dct.get(x))))
