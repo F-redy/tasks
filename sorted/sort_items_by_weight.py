@@ -32,3 +32,8 @@ print(*sorted(items_dict, key=lambda weight: -items_dict[weight]))
 items_dct = dict(line.split("=") for line in lst_in)
 
 print(*sorted(items_dct, key=lambda x: -int(items_dct.get(x))))
+
+# v3
+items_d = {item: int(weight) for item, weight in [row.split('=') for row in lst_in]}
+
+print(*sorted(items_dct, key=items_d.get, reverse=True))
