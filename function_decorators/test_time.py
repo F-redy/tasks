@@ -1,5 +1,7 @@
 from time import time
 
+__all__ = ('test_time',)
+# for import func: from function_decorators.test_time import test_time
 
 def test_time(func):
     def wrapper(*args, **kwargs):
