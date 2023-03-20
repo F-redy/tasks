@@ -71,7 +71,7 @@ def change_to_nested_tuple(lst: list[str]) -> tuple[tuple[str | int]]:
     # return tuple(tuple(int(obj) if obj.isdigit() else obj for obj in row.split(';')) for row in lst)
 
 
-def sort_by_pattern(tpl_: tuple[tuple[str | int]], pattern: tuple[str]) -> tuple[tuple[str | int]]:
+def sort_by_pattern(tpl_: tuple[tuple[str | int]], pattern: tuple) -> tuple[tuple[str | int]]:
     """
     Function sorts a tuple by pattern.
     :param tpl_: nested tuple of strings and numbers;
