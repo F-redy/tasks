@@ -34,9 +34,9 @@ import sys
 lst_in = list(map(str.strip, sys.stdin.readlines()))
 
 # version for lesson
-headers = tuple('Имя;Зачет;Оценка;Номер'.split(';'))
-t = tuple(tuple(int(e) if e.isdigit() else e for e in s.split(';')) for s in lst_in)
-t_sorted = tuple(zip(*sorted(zip(*t), key=lambda x: headers.index(x[0]))))
+patterns_ = tuple('Имя;Зачет;Оценка;Номер'.split(';'))
+tpl = tuple(tuple(int(obj) if obj.isdigit() else obj for obj in row.split(';')) for row in lst_in)
+t_sorted = tuple(zip(*sorted(zip(*tpl), key=lambda x: patterns_.index(x[0]))))
 
 
 # version with output
