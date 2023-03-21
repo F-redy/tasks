@@ -39,7 +39,9 @@ def generation_password(length: int) -> Generator[str, None, None]:
         # yield ''.join(chars[randint(0, len(chars) - 1)] for _ in range(length))
 
 
-n = int(input())
+n = int(input('Enter password length: '))
+count = int(input('Enter the number of passwords options: '))
+
 passwords = generation_password(n)
 
-[print(next(passwords)) for _ in range(5)]
+[print(next(passwords)) for _ in range(count)]
