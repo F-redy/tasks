@@ -123,7 +123,7 @@ def create_new_word_dictionary_for_table(path: str, table_name: str) -> Dict[str
             if words_in_table.get(word) is None:
                 new_dictionary.setdefault(word, []).extend(translate_word)
 
-        return new_dictionary if new_dictionary else words_in_file
+    return new_dictionary if new_dictionary else words_in_file
 
 
 def insert_words(file_name: str, dict_name: str) -> None:
