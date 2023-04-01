@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from raise_project.check_valleys_in_path import count_valleys_in_path
+from raise_module.check_valleys_in_path import count_valleys_in_path
 
 
 class TestCountValleysInPath(TestCase):
