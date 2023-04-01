@@ -14,17 +14,17 @@ def validate_path_finished(string: str) -> None:
         raise ValueError(f'path {string} - wrong way!')
 
 
-def check_path(path: str, check_funcs: tuple) -> None:
+def check_path(path: str, funcs_tuple: tuple) -> None:
     try:
-        for check_func in check_funcs:
+        for check_func in funcs_tuple:
             check_func(path)
     except (ValueError, TypeError) as e:
         raise type(e)(f'{TEXT_FOR_ERRORS}{e}')
 
 
 def count_valleys_in_path(path: str) -> int:
-    check_funcs = (check_valid_string_type, check_valid_path, validate_path_finished)
-    check_path(path, check_funcs)
+    funcs_tuple = (check_valid_string_type, check_valid_path, validate_path_finished)
+    check_path(path, funcs_tuple)
 
     average = result = 0
 
