@@ -106,4 +106,4 @@ if __name__ == '__main__':
     steps = int(input('How many steps on the way? '))
     our_path = input('Enter path for count valleys: ').strip().upper()
     valleys_count = count_valleys_in_path(steps, our_path)
-    get_valley_count_message(valleys_count)
+    print(get_valley_count_message(valleys_count))
