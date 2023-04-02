@@ -1,3 +1,12 @@
+VALID_CHARS = ('U', 'D')
+TEXT_FOR_ERRORS = 'Invalid path: '
+TEXT_RESULT = (
+    'On your way there was {} valley.',
+    'On your way there were {} valleys.',
+    'There were {} valleys on your way.',
+)
+
+
 def check_length_path(all_steps: int, path: str) -> None:
     if all_steps != len(path):
         raise ValueError('The number of steps is not equal to the path')
@@ -47,14 +56,6 @@ def count_valleys_in_path(all_steps: int, path: str) -> int:
 
     return valley_count
 
-
-VALID_CHARS = ('U', 'D')
-TEXT_FOR_ERRORS = 'Invalid path: '
-TEXT_RESULT = (
-    'On your way there was {} valley.',
-    'On your way there were {} valleys.',
-    'There were {} valleys on your way.',
-)
 
 if __name__ == '__main__':
     steps = int(input('How many steps on the way? '))
