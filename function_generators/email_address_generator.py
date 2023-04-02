@@ -22,9 +22,9 @@
 # SCrUZoLg@mail.ru
 # ubbbPIay@mail.ru
 
+from random import choice, seed
 from string import ascii_lowercase, ascii_uppercase
 from typing import Generator
-from random import choice, seed
 
 seed(1)
 chars = ascii_lowercase + ascii_uppercase

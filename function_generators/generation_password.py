@@ -24,8 +24,8 @@
 # mxLpQ@2@yM
 
 
+from random import choice, randint, seed
 from string import ascii_lowercase, ascii_uppercase
-from random import randint, seed, choice
 from typing import Generator
 
 chars = ascii_lowercase + ascii_uppercase + "0123456789!?@#$*"

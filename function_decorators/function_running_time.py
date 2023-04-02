@@ -1,5 +1,5 @@
 from time import time
-from typing import Callable, Any
+from typing import Any, Callable
 
 
 def timer_decorator(func: Callable[..., Any]) -> Callable[..., Any]:

@@ -1,5 +1,5 @@
 from time import time
-from typing import Callable, Any
+from typing import Any, Callable
 
 __all__ = ('test_time',)
 

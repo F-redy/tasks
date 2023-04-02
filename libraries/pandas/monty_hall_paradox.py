@@ -1,6 +1,7 @@
 from random import choice, seed
-import pandas as pd
+
 import matplotlib.pyplot as plt
+import pandas as pd
 
 attempts = int(input('enter number of attempts: '))
 
