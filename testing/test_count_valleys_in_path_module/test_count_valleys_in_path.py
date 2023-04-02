@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from raise_module.valleys_count.check_valleys_in_path import count_valleys_in_path
+from raise_module.valleys_count.check_valleys_in_path import count_valleys_in_path, get_valley_count_message
 
 DATA_PATH = r'data_path.txt'
 
@@ -24,3 +24,19 @@ class TestCountValleysInPath(TestCase):
 
         for path in data:
             self.assertRaises(TypeError, count_valleys_in_path, *path)
+
+
+class TestGetValleyCountMessage(TestCase):
+    def test_out_text(self):
+        data = (
+            'On your way there was {} valley.',
+            'On your way there were {} valleys.',
+            'There were {} valleys on your way.',
+        )
+        self.assertEqual(get_valley_count_message(0), data[2].format(0))
+        self.assertEqual(get_valley_count_message(1), data[0].format(1))
+        self.assertEqual(get_valley_count_message(2), data[1].format(2))
+        self.assertEqual(get_valley_count_message(3), data[1].format(3))
+
+        for i in range(4, 10000):
+            self.assertEqual(get_valley_count_message(i), data[2].format(i))
