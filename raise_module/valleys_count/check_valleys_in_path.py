@@ -63,21 +63,21 @@ def check_path(all_steps: int, path: str, funcs_tuple: tuple) -> None:
         raise type(e)(f'{TEXT_FOR_ERRORS}{e}')
 
 
-def print_valley_count_text(valley: int) -> None:
+def get_valley_count_message(valley: int) -> str:
     """
     Print the output text based on the number of valleys.
 
     :param valley: Number of valleys.
-    :return: None
+    :return: A message about the number of valleys hiked.
     """
 
     match valley:
         case 1:
-            print(TEXT_RESULT[0].format(valley))
+            return TEXT_RESULT[0].format(valley)
         case 2 | 3:
-            print(TEXT_RESULT[1].format(valley))
+            return TEXT_RESULT[1].format(valley)
         case _:
-            print(TEXT_RESULT[2].format(valley))
+            return TEXT_RESULT[2].format(valley)
 
 
 def count_valleys_in_path(all_steps: int, path: str) -> int:
@@ -106,4 +106,4 @@ if __name__ == '__main__':
     steps = int(input('How many steps on the way? '))
     our_path = input('Enter path for count valleys: ').strip().upper()
     valleys_count = count_valleys_in_path(steps, our_path)
-    print_valley_count_text(valleys_count)
+    get_valley_count_message(valleys_count)
