@@ -32,7 +32,8 @@ def diagonal_difference(arr: list, x: int) -> int:
     return abs(primary - secondary)
 
 
-n = int(input())
-lst = [list(map(int, input().split())) for _ in range(n)]
+if __name__ == '__main__':
+    n = int(input())
+    lst = [list(map(int, input().split())) for _ in range(n)]
 
-print(diagonal_difference(lst, n))
+    print(diagonal_difference(lst, n))
