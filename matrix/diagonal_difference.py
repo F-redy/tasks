@@ -26,6 +26,9 @@
 # Output Format:
 # Return the absolute difference between the sums of the matrix's two diagonals as a single integer.
 
+
+# tests testing/test_diagonal_difference.py
+
 def diagonal_difference(arr: list, x: int) -> int:
     primary = sum(arr[i][i] for i in range(x))
     secondary = sum(arr[i][x - i - 1] for i in range(x))
