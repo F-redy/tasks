@@ -25,5 +25,9 @@
 #         'age': 20,
 #     }
 
-def create_actor(name='Райан', surname='Рейнольдс', age=46, **kwargs):
+def create_actor_v1(name='Райан', surname='Рейнольдс', age=46, **kwargs):
     return {'name': name, 'surname': surname, 'age': age, **kwargs}
+
+
+def create_actor_v2(**kwargs):
+    return {'name': 'Райан', 'surname': 'Рейнольдс', 'age': 46} | kwargs
