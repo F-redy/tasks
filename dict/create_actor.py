@@ -25,9 +25,9 @@
 #         'age': 20,
 #     }
 
-def create_actor_v1(name='Райан', surname='Рейнольдс', age=46, **kwargs):
+def create_actor_v1(name: str = 'Райан', surname: str = 'Рейнольдс', age: int = 46, **kwargs) -> dict:
     return {'name': name, 'surname': surname, 'age': age, **kwargs}
 
 
-def create_actor_v2(**kwargs):
+def create_actor_v2(**kwargs: dict[str, str | int]) -> dict[str, str | int]:
     return {'name': 'Райан', 'surname': 'Рейнольдс', 'age': 46} | kwargs
