@@ -49,8 +49,7 @@ def books_scraper() -> list[dict]:
 
 def get_next_page() -> str | None:
     try:
-        next_page = f"{path}catalogue/{soup.find('li', attrs={'class': 'next'}).find('a')['href']}"
-        return next_page
+        return f"{path}catalogue/{soup.find('li', attrs={'class': 'next'}).find('a')['href']}"
     except AttributeError:
         return None
 
@@ -68,7 +67,7 @@ def save_to_file(lst_books: list[dict]):
 path: str = r'https://books.toscrape.com/'
 url: str = r"https://books.toscrape.com/catalogue/page-1.html"
 
-page_site: int = 1
+site_page: int = 1
 counter_books: int = 0
 
 while url:
@@ -82,9 +81,11 @@ while url:
 
         counter = len(list_books)
 
-        print(f'Received {counter} books from page {page_site}.')
+        print(f'Received {counter} books from page {site_page}.')
 
-        page_site += 1
+        site_page += 1
         counter_books += counter
 
         url = get_next_page()
+
+print(f'Data was parsed...\ntotal of {site_page} pages were processed;\ntotal of {counter_books} books were received.')
