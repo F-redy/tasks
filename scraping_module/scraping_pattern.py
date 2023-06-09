@@ -1,7 +1,9 @@
+import re
+from http import HTTPStatus
+from random import randint
+
 import requests
 from bs4 import BeautifulSoup as BS
-from random import randint
-import re
 
 # Обманка для сайтов
 headers = [{"User-Agent": "Mozzila/5.0 (Windows NT 5.1; rv:47.0) Gecko/20100101 Firefox/47.0",
@@ -22,7 +24,7 @@ def check_lang(word: str) -> str:
     return ('ru', 'en')[word[0] in en]
 
 
-def scraping_func(url: str) -> None:
+def scraping_quizlet(url: str) -> None:
     resp = requests.get(url, headers=headers[randint(0, 2)])
     if url:
         if resp.status_code == 200:
@@ -54,5 +56,44 @@ def scraping_func(url: str) -> None:
         print('Do not have url')
 
 
-url = 'YOUR URL'
-scraping_func(url)
+def books_scraper(url: str) -> list[dict]:
+    """
+    Fuction scraper for https://books.toscrape.com/
+
+    :param url: link to site
+    :return: list with book
+    """
+
+    if url:
+        resp = requests.get(url, headers=headers[randint(0, 2)])
+
+        if resp.status_code == HTTPStatus.OK:
+            html = resp.content
+            soup = BS(html, 'html.parser')
+            sections = soup.select('section')
+            section = sections[0]
+            books_block = section.select_one('ol[class=row]')
+            books = books_block.select('li')
+            books_data = []
+
+            for book in books:
+                image = url + book.find('div', attrs={'class': 'image_container'}).find('img')['src']
+                title = book.find('h3').find('a')['title']  # book.h3.a['title']
+                price = book.find('p', class_='price_color').text
+
+                books_data.append(
+                    {
+                        'title': title,
+                        'image': image,
+                        'price': price
+                    }
+                )
+
+            return books_data
+
+
+link_books = r'https://books.toscrape.com/'
+books_scraper(link_books)
+
+link_quizlet = 'YOUR URL'
+scraping_quizlet(link_quizlet)
