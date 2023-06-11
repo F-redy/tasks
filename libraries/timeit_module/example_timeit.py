@@ -11,9 +11,7 @@ for i in lens:
     a = i
 """
 
-time_result_list = tuple()
-for _ in range(10):
-    time_result_list += timeit(code, number=1),
+time_result_list = tuple(timeit(code, number=1) for _ in range(10))
 
 print(f"Время выполнения: {sum(time_result_list) / len(time_result_list)} сек.")
 print(f"Размер всех элементов кортежа: {sys.getsizeof(time_result_list)} байт.")
