@@ -1,12 +1,12 @@
 from time import perf_counter
 from memory_profiler import profile
 from typing import Any, Callable
-from sys import getsizeof
+from pympler import asizeof
 
 
 def timer(repeat: int = 10, profile_enabled: bool = False) -> Callable[[Callable[..., Any]], Callable[..., str]]:
     """
-    Декоратор для измерения времени выполнения функции.
+    Декоратор для измерения времени выполнения функции и размера возвращаемого объекта.
 
     Параметры:
         repeat (int): Количество повторений измерений для получения среднего значения.
@@ -15,35 +15,50 @@ def timer(repeat: int = 10, profile_enabled: bool = False) -> Callable[[Callable
 
     Зависимости:
         - memory-profiler: pip install memory-profiler
-        - sys.getsizeof
+        - pympler: pip install pympler
 
     Возвращает:
-        Callable[..., float]: Декорированную функцию, которая возвращает среднее время выполнения в секундах.
+        Callable[..., str]: Декорированную функцию, которая возвращает строку с информацией о среднем времени выполнения
+                            и среднем размере объекта.
 
     Пример использования:
         @timer(repeat=5, profile_enabled=True)
         def my_function():
             # код функции
 
-        average_time = my_function()  # Среднее время выполнения функции, Средний размер объекта
+        result = my_function()  # Строка с информацией о среднем времени выполнения и среднем размере объекта
     """
 
     def decorator(func: Callable[..., Any]) -> Callable[..., str]:
+
         def wrapper(*args, **kwargs) -> str:
+            if profile_enabled:
+                # Выполняем профилировку памяти только один раз перед циклом
+                func_profiled = profile(func)
+                func_profiled(*args, **kwargs)
+
             measurements = []
             sizes = []
             for _ in range(repeat):
                 start = perf_counter()
-                sizes.append(getsizeof(func(*args, **kwargs)))
+                result = func(*args, **kwargs)
                 measurements.append(perf_counter() - start)
+                sizes.append(asizeof.asizeof(result))
 
             average_time = sum(measurements) / len(measurements)
             average_size = sum(sizes) / len(sizes)
             return f'Среднее время выполнения функции: {average_time}\nСредний размер объекта: {average_size} байт'
 
-        if profile_enabled:
-            return profile(wrapper)
-        else:
-            return wrapper
+        return wrapper
 
     return decorator
+
+
+@timer(repeat=10, profile_enabled=True)
+def convert(x: int) -> str:
+    return ''.join(map(str, range(x + 1)))
+
+
+num = 1_000_000
+
+print(convert(num))
