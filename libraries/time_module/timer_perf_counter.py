@@ -52,13 +52,3 @@ def timer(repeat: int = 10, profile_enabled: bool = False) -> Callable[[Callable
         return wrapper
 
     return decorator
-
-
-@timer(repeat=10, profile_enabled=True)
-def convert(x: int) -> str:
-    return ''.join(map(str, range(x + 1)))
-
-
-num = 1_000_000
-
-print(convert(num))
