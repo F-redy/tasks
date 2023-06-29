@@ -42,8 +42,7 @@ test_case = [
 
 pattern = r"\b[a-z]+(?:[A-Z][a-z]+\d*)*\d*\b"
 
-for i, obj in enumerate(test_case, 1):
-    example, answer = obj
+for i, (example, answer) in enumerate(test_case, 1):
     result = ' '.join(re.findall(pattern, example))
     assert result == answer, f'TEST №{i} - Error! {result} != {answer}'
     print(f'TEST №{i} - OK')
