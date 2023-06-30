@@ -15,21 +15,6 @@
 # quiteLongVariable
 # twoWords
 
-# Sample Input 1:
-# get_id sendMessage echo_all canvas wrapper RegularExpression vUpperCase nice_Flick_SHOT that_was_bad getLink
-# Sample Output 1:
-# sendMessage canvas wrapper vUpperCase getLink
-
-# Sample Input 2:
-# variableWithNumbers3134 anotherOne1 another1
-# Sample Output 2:
-# variableWithNumbers3134 anotherOne1 another1
-
-# Sample Input 3:
-# just_a_variable Wrong_Variable SendNudes doubleShibaInu
-# Sample Output 3:
-# doubleShibaInu
-
 import re
 
 test_case = [
@@ -44,5 +29,5 @@ pattern = r"\b[a-z]+(?:[A-Z][a-z]+\d*)*\d*\b"
 
 for i, (example, answer) in enumerate(test_case, 1):
     result = ' '.join(re.findall(pattern, example))
-    assert result == answer, f'TEST №{i} - Error! {result} != {answer}'
+    assert result == answer, f'TEST №{i} - Error!\n{result} != {answer}'
     print(f'TEST №{i} - OK')
