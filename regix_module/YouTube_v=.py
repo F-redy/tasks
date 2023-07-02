@@ -7,32 +7,9 @@
 #
 # Cостоит из символов латинского алфавита обоих регистров, цифр, а также _
 # Перед последовательностью стоит v=
-# Sample Input 1:
-#
-#
-# Sample Output 1:
-#
-#
-# Sample Input 2:
-#
-#
-# Sample Output 2:
-#
-#
-# Sample Input 3:
-#
-#
-# Sample Output 3:
-#
-#
-# Sample Input 4:
-#
-#
-# Sample Output 4:
-#
-#
 
-import re
+
+from test_regex import test_regex
 
 test_case = [
     ('https://youtu.be/watch?v=dQw4w9WgXcQ&list=PLi9drqWffJ9FWBo7ZVOiaVy0UQQEm4IbP', 'dQw4w9WgXcQ'),
@@ -44,7 +21,4 @@ test_case = [
 
 pattern = r"(?<=v=)[A-z\d_]+"
 
-for i, (example, answer) in enumerate(test_case, 1):
-    result = ' '.join(re.findall(pattern, example))
-    assert result == answer, f'TEST {i} - ERROR:\n{result} != {answer}'
-    print(f'TEST {i} - OK')
+test_regex(test_case, pattern)
