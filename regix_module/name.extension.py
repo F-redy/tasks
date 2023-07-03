@@ -26,6 +26,6 @@ test_case = [
     (' :a.json  ?s.csv', ''),
     ('video-_a.mp4 logs_1.txt', 'video-_a.mp4 logs_1.txt')
 ]
-pattern = r"(?<![^\s\\/])[a-zA-Z\d\-_]+[a-zA-Z\d]+\.[a-z\d]+"
+pattern = r"(?<![^\s\\/])[a-zA-Z\d\-_]+[a-zA-Z\d]+\.[a-zA-Z\d]+"
 
 test_regex(test_case, pattern)
