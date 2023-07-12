@@ -26,8 +26,8 @@ test_case = [
 
 
 def is_valid_password(password: str) -> bool:
-    simbols = ''.join(map(re.escape, '@#$%^&*()_-+!?'))
-    pattern = re.compile(r"[A-Za-z\d{}]{}".format(simbols, '{8,}'))
+    symbols = ''.join(map(re.escape, '@#$%^&*()_-+!?'))
+    pattern = re.compile(fr"[A-Za-z\d{symbols}]{{8,}}")
     return bool(pattern.fullmatch(password))
 
 
