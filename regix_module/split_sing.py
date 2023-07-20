@@ -23,4 +23,6 @@ test_case = [
 ]
 
 for i, (test, answer) in enumerate(test_case, 1):
-    print(re.split(r"[.?!, ]", test))
+    result = re.split(r"[.?!, ]", test)
+    assert result == answer, f'TEST №{i}\nError in {test}\n{result} != {answer}'
+    print(f'TEST №{i} - OK')
