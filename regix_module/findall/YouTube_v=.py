@@ -9,7 +9,7 @@
 # Перед последовательностью стоит v=
 
 
-from test_regex import test_regex
+import re
 
 test_case = [
     ('https://youtu.be/watch?v=dQw4w9WgXcQ&list=PLi9drqWffJ9FWBo7ZVOiaVy0UQQEm4IbP', 'dQw4w9WgXcQ'),
@@ -21,4 +21,7 @@ test_case = [
 
 pattern = r"(?<=v=)[A-z\d_]+"
 
-test_regex(test_case, pattern)
+for i, (example, answer) in enumerate(test_case, 1):
+    result = ' '.join(re.findall(pattern, example))
+    assert result == answer, f'TEST №{i} - ERROR!\n{result} != {answer}'
+    print(f'TEST №{i} - OK!')

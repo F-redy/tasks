@@ -13,7 +13,7 @@
 # После последнего числа может стоять запятая, т.к. такие массивы: [123, 123, ] и [23, ] валидные в Python
 
 
-from test_regex import test_regex
+import re
 
 test_case = [
     (
@@ -31,4 +31,7 @@ test_case = [
 
 pattern = r"\[(?:\d+(?:, ?)?)*\]"
 
-test_regex(test_case, pattern)
+for i, (test, answer) in enumerate(test_case, 1):
+    result = ' '.join(re.findall(pattern, test))
+    assert result == answer, f'TEST №{i} - ERROR!\n{result} != {answer}\nError in {test}'
+    print(f'TEST №{i} - OK!')

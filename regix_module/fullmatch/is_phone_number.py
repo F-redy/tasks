@@ -17,6 +17,7 @@
 #
 # Выходные данные:
 # Если это номер телефона - выводите True, иначе - False.
+
 import re
 
 test_case = [('3(097)8179710', True), ('+30936655917', True), ('89175643308', True), ('+3 067 7993132', True),
@@ -25,13 +26,9 @@ test_case = [('3(097)8179710', True), ('+30936655917', True), ('89175643308', Tr
              ('+3 063 79938', False), ('8 (066) -007-62-31', False), ('-8 (067 35312 49', False),
              ('8 097 789f33-08', False), ('8 093 674 85 5', False)]
 
-
-def is_number_phone(number: str) -> bool:
-    pattern = r"^\+?(?:\d[() -]{0,2}){11,}"
-    return bool(re.fullmatch(pattern, number))
-
+pattern = r"^\+?(?:\d[() -]{0,2}){11,}"
 
 for i, (test, result) in enumerate(test_case, 1):
-    res = is_number_phone(test)
+    res = bool(re.fullmatch(pattern, test))
     assert res == result, f"TEST №{i}: ERROR in {test}\n{res} != {result}"
     print(f'TEST №{i}: OK')

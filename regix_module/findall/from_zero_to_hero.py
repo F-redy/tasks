@@ -14,7 +14,8 @@
 # Если x - десятичная дробь, то её максимальная точность должна быть до сотых
 #
 # В тестах не будет 0.00/0.0 или 1.00/1.0. Эти числа будут записаны без плавающей точки
-from test_regex import test_regex
+
+import re
 
 test_case = [
     ('0.3 1.32 1 -6 1 6 0.77 1 2 0.4 0 0.356 0.32 0.7', '0.3 1 1 0.77 1 0.4 0 0.32 0.7'),
@@ -25,4 +26,7 @@ test_case = [
 
 pattern = r"(?<!\S)(?:0|1|0\.[\d]{1,2})(?!\S)"
 
-test_regex(test_case, pattern)
+for i, (example, answer) in enumerate(test_case, 1):
+    result = ' '.join(re.findall(pattern, example))
+    assert result == answer, f'TEST №{i} - ERROR!\n{result} != {answer}'
+    print(f'TEST №{i} - OK!')

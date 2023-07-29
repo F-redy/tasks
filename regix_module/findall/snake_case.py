@@ -16,7 +16,7 @@
 # two_words
 
 
-from test_regex import test_regex
+import re
 
 test_case = [
     ('get_id sendMessage echo_all canvas wrapper RegularExpression upperCAse nice_Flick_SHOT that_was_bad',
@@ -29,4 +29,7 @@ test_case = [
 
 pattern = r"\b[a-z]+(?:_\d+)?(?:_[a-z]+\d*)*\b"
 
-test_regex(test_case, pattern)
+for i, (example, answer) in enumerate(test_case, 1):
+    result = ' '.join(re.findall(pattern, example))
+    assert result == answer, f'TEST №{i} - ERROR!\n{result} != {answer}'
+    print(f'TEST №{i} - OK!')

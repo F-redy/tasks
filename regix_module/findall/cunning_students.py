@@ -19,7 +19,7 @@
 # Не может являться подпоследовательностью
 
 
-from regix_module.test_regex import test_regex
+import re
 
 test_case = [
     (
@@ -42,4 +42,7 @@ regex = fr'{pat1}|{pat2}'
 # v2
 pattern = r"(?i)(?:[^а-яё\s]+[а-яё]+)+[^а-яё\s]*\b|(?:[а-яё]+[^а-яё\s]+)+[а-яё]*\b"
 
-test_regex(test_case, pattern)
+for i, (test, answer) in enumerate(test_case, 1):
+    result = ' '.join(re.findall(regex, test))
+    assert result == answer, f'TEST №{i} - ERROR!\n{result} != {answer}\nError in {test}'
+    print(f'TEST №{i} - OK!')

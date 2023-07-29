@@ -13,7 +13,7 @@
 # только если стоит в абсолютном или относительном пути: C:\Users\test.txt, ../Users/test.txt,
 # т.е. перед ней стоят символы / или \
 
-from regix_module.test_regex import test_regex
+import re
 
 test_case = [
     ('Untitled-1.psd Untitled-1.jpg video.mp4', 'Untitled-1.psd Untitled-1.jpg video.mp4'),
@@ -28,4 +28,7 @@ test_case = [
 ]
 pattern = r"(?<![^\s\\/])[a-zA-Z\d\-_]+[a-zA-Z\d]+\.[a-zA-Z\d]+"
 
-test_regex(test_case, pattern)
+for i, (example, answer) in enumerate(test_case, 1):
+    result = ' '.join(re.findall(pattern, example))
+    assert result == answer, f'TEST №{i} - ERROR!\n{result} != {answer}'
+    print(f'TEST №{i} - OK!')
