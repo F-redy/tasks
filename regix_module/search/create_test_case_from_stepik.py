@@ -3,6 +3,11 @@ import sys
 
 
 def get_input_text_lines() -> list[str]:
+    """
+    Reads lines of text from standard input and returns them as a list.
+
+    :return: A list of strings containing the lines of input text.
+    """
     print("-" * 158, '\nEnter the text:')
     # data_list = list(map(str.strip, sys.stdin.readlines()))
     return [line.strip() for line in sys.stdin.readlines() if line.strip()]
