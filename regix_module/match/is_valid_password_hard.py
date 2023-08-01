@@ -1,7 +1,17 @@
 import re
 from itertools import zip_longest
 
-r = r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()\-_=+{};:,.<>?/|\\~])[a-zA-Z\d!@#$%^&*()\-_=+{};:,.<>?/|\\~]{8,}$"
+# Хотя бы одна маленькая буква, одна большая буква, одна цифра
+# и один специальный символ, и общая длина не менее 8 символов
+pattern = re.compile("""(?x)
+    ^                   # Начало строки
+    (?=.*[a-z])         # Хотя бы одна маленькая буква (позитивный просмотр вперед)
+    (?=.*[A-Z])         # Хотя бы одна большая буква (позитивный просмотр вперед)
+    (?=.*\d)            # Хотя бы одна цифра (позитивный просмотр вперед)
+    (?=.*[!@#$%^&*()\-_=+{};:,.<>?/|\\~])  # Хотя бы один специальный символ (позитивный просмотр вперед)
+    [a-zA-Z\d!@#$%^&*()\-_=+{};:,.<>?/|\\~]{8,}  # Символы из указанных классов и длина не менее 8
+    $                   # Конец строки
+""")
 
 password_case = ['ojyFKx9W', '4a9kgJ7Z', 'qEcWVYte', 'VpdxP5CK', 'mZVYFcQA', 'aEPl2On2', 'jUq09lAT', 'Q9SAfNvn',
                  'YtBXDxTr', 'ttSjPTZt', '12345', '123456', '1234567', '12345678', '123456789', 'abcdfgtyh', '9wjDXFAB',
@@ -15,7 +25,7 @@ password_case = ['ojyFKx9W', '4a9kgJ7Z', 'qEcWVYte', 'VpdxP5CK', 'mZVYFcQA', 'aE
 strong_passwords = []
 simple_passwords = []
 for password in password_case:
-    if re.match(r, password):
+    if re.match(pattern, password):
         strong_passwords.append(password)
     else:
         simple_passwords.append(password)
