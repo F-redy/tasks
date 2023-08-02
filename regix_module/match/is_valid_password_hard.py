@@ -1,9 +1,11 @@
 import re
 from itertools import zip_longest
-from string import punctuation as symbols
+from string import punctuation
 
 # Хотя бы одна маленькая буква, одна большая буква, одна цифра
 # и один специальный символ, и общая длина не менее 8 символов
+symbols = re.escape(punctuation)
+
 pattern = re.compile(fr"""(?x)
     ^                   # Начало строки
     (?=.*[a-z])         # Хотя бы одна маленькая буква (позитивный просмотр вперед)
