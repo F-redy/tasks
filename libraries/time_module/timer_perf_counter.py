@@ -1,6 +1,7 @@
 from time import perf_counter
-from memory_profiler import profile
 from typing import Any, Callable
+
+from memory_profiler import profile
 from pympler import asizeof
 
 
