@@ -1,6 +1,7 @@
 from unittest import TestCase
 
-from raise_module.valleys_count.check_valleys_in_path import count_valleys_in_path, get_valley_count_message
+from raise_module.valleys_count.check_valleys_in_path import (
+    count_valleys_in_path, get_valley_count_message)
 
 DATA_PATH = r'data_path.txt'
 
