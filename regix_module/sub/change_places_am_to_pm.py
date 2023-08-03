@@ -13,6 +13,7 @@
 # Строка с am, заменённым на pm, и pm, заменённым на am.
 
 import re
+from regix_module.test_regex import test_regex
 
 test_case = [
     ("It's already 12:00am and I still don't want to sleep.", "It's already 12:00pm and I still don't want to sleep."),
@@ -31,11 +32,5 @@ def func(match: re.Match):
 
 
 pattern = r"(am|pm)*"
-
-# for i, (test, answer) in enumerate(test_case, 1):
-#     result = re.sub(pattern, func, test)
-#     assert result == answer, f'TEST №{i} - ERROR!\n{result} != {answer}\nERROR in:\n {test}'
-#     print(f'TEST №{i} - OK\n{result}\n')
-from regix_module.test_regex import test_regex
 
 test_regex(test_case, pattern, 'sub', func)
