@@ -1,7 +1,7 @@
 import re
 
 
-def test_regex(test_case: list[any], pattern: str, method: str, repl: str | callable = None, flags: int = 0) -> None:
+def test_regex(test_case: list[any], pattern: str, method: str, repl: [str, callable] = None, flags: int = 0) -> None:
     """
     Tests a regular expression against a list of test cases.
 
