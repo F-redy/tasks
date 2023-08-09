@@ -33,13 +33,25 @@ test_case = [('GROHE Aria 25081000 - Смеситель для ванны (хр�
               'GoPro The Handler Floating Hand Grip - 1121,63 грн')
              ]
 
-pattern = re.compile(r"(\$)(\d+,?\d*)|(\d+,?\d*)(?: ?дюйм[а|ов]?|\")")
-rate_d = float(input('Enter dollar exchange rate(курс доллара): ').replace(',', '.'))
+pattern = re.compile(r"(\$)(?P<money>\d+,?\d*)|(?P<inch>\d+,?\d*)(?: ?дюйм[а|ов]?|\")")
 
 
-def convert(match: re.Match) -> str:
-    factor, unit = ((2.54, 'см'), (rate_d, 'грн'))['$' == match[1]]
-    num = float((match[2] or match[3]).replace(',', '.')) * factor
+def convert(match: re.Match, measurements: [int | float | str] = 2.54, to_measurements: [int | float | str] = 'см',
+            rate: float = 37.4, currency: str = '$', to_currency: str = 'грн') -> str:
+    """
+      Конвертирует числовые значения в строке на основе сопоставления с регулярным выражением.
+      Args:
+          match (re.Match): Объект сопоставления регулярного выражения.
+          measurements (float | int | str, optional): Единица измерения. По умолчанию 2.54(1 дюйм == 2.54 см).
+          to_measurements (float | int | str, optional): Единица измерения для замены. По умолчанию 'см'.
+          rate (float, optional): Курс валюты. По умолчанию 37.4.
+          currency (str, optional): Валюта. По умолчанию '$'.
+          to_currency (str, optional): Валюта для замены. По умолчанию 'грн'.
+      Returns:
+          str: Конвертированное числовое значение с единицей измерения.
+      """
+    factor, unit = ((measurements, to_measurements), (rate, to_currency))[currency == match[1]]
+    num = float((match['money'] or match['inch']).replace(',', '.')) * factor
     x = (round(num, 2), int(num))[int(num) == num]
 
     return '{} {}'.format(str(x).replace('.', ','), unit)
