@@ -5,7 +5,7 @@
 import re
 
 test_case = [('ap fl hk ap hk fl', 'ap'), ('yes no eyes no maybe', 'no'), ('abc def apc def', 'def'),
-             ('three different words', 'None')]
+             ('three different words', None)]
 
 
 def find_repeated(text):
@@ -15,7 +15,9 @@ def find_repeated(text):
 
 
 for i, (test, answer) in enumerate(test_case, 1):
-    print(find_repeated(test))
+    result = find_repeated(test)
+    assert result == answer, f'TEST №{i} - ERROR!\n{result} != {answer}\nERROR in:\n {test}'
+    print(f'TEST №{i} - OK\n{result}\n')
 
 
 # похожая задача
