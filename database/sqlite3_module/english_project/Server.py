@@ -36,10 +36,13 @@ class Server:
     DBASE = FDataBase(DB)
     Helper = ValidationHelper()
 
-    def __init__(self, username: str, entered_password: str, email: str = None, registration: bool = False):
+    def __init__(self, username: str, entered_password: str = None, email: str = None, registration: bool = False,
+                 change_password: bool = False):
         self.__verified_user = None
         self.data_user = None
-        if registration:
+        if change_password and email:
+            self.change_password(username, email)
+        elif registration:
             self.add_user(username, entered_password, email)
         else:
             self.login(username, entered_password)
@@ -57,13 +60,13 @@ class Server:
         self.__verified_user = self.verification_user(username)
         if self.__verified_user:
             attempts = 5
-            password = self.Helper.check_password(entered_password, self.__verified_user['password'])
-            while attempts and not password:
+            check_password = self.Helper.check_password(entered_password, self.__verified_user['password'])
+            while attempts and not check_password:
                 entered_password = input(f'Error password, {attempts} tries left!\nEnter correct password: ')
                 attempts -= 1
-                password = self.Helper.check_password(entered_password, self.__verified_user['password'])
+                check_password = self.Helper.check_password(entered_password, self.__verified_user['password'])
 
-            if not password:
+            if not check_password:
                 self.__verified_user = None
                 raise ValueError('The attempts are over!')
             else:
@@ -78,16 +81,40 @@ class Server:
 
     @classmethod
     def add_user(cls, username: str, password: str, email: str):
-        username = cls.Helper.clean_string(username)
-        hashed_password = cls.Helper.hash_password(password)
-        verified_email = cls.Helper.email_verification(email)
+        if not cls.Helper.is_valid_username(username):
+            return f'{username} incorrect!'
 
-        cls.DBASE.add_user(username, hashed_password, verified_email)
+        if not cls.Helper.email_verification(email):
+            return f'Email incorrect!'
+
+        if not cls.Helper.is_valid_entered_password(password):
+            return 'Min length 8 symbols. Password must contain at least 1 capital letter, 1 lowercase letter, 1 digit!'
+
+        hashed_password = cls.Helper.hash_password(password)
+        cls.DBASE.add_user(username, hashed_password, email)
 
     @classmethod
     def get_user(cls, username: str):
-        username = cls.Helper.clean_string(username)
-        return cls.DBASE.get_user(username)
+        if cls.Helper.is_valid_username(username):
+            return cls.DBASE.get_user(username.strip())
+
+    def change_password(self, username: str, email: str):
+        self.__verified_user = self.verification_user(username)
+        if not self.__verified_user:
+            return f'{username} not found!'
+        if not (self.__verified_user['email'] == email):
+            return f'{username} wirth {email} not found!'
+        attempts = 5
+        while attempts:
+            new_password = input('Enter new password(min length 8 symbols): ')
+            attempts -= 1
+            if self.Helper.is_valid_entered_password(new_password):
+                verification_hash_password = self.Helper.hash_password(new_password)
+                self.DBASE.change_user_password(email, verification_hash_password)
+                return
+            else:
+                print('Min length 8 symbols. '
+                      'Password must contain at least 1 capital letter, 1 lowercase letter, 1 digit!')
 
     @classmethod
     def add_dictionary(cls, dictionary_title: str, user_id: int):
