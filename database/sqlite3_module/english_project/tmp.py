@@ -1,6 +1,8 @@
 import bcrypt
 from Server import Server
-from test_bd import get_all_tables
+
+
+# from test_bd import get_all_tables
 
 
 # menu = {
@@ -27,23 +29,32 @@ def authorization():
     return Server(username, password)
 
 
-def add_dictionary(user_id: int):
-    title_dict: str = input('Enter dictionary title:\n')
-    authorized_user.add_dictionary(title_dict, user_id)
+def set_new_user_password():
+    username = input('Enter username: ')
+    email = input('Enter email: ')
+    Server(username=username, email=email, change_password=True)
 
 
-def add_words(words: list[tuple[str, str]], title_dict: str, username: str):
-    authorized_user.add_words(words, title_dict, username)
+# def add_dictionary(user_id: int):
+#     title_dict: str = input('Enter dictionary title:\n')
+#     authorized_user.add_dictionary(title_dict, user_id)
+
+# def add_words(words: list[tuple[str, str]], title_dict: str, username: str):
+#     authorized_user.add_words(words, title_dict, username)
 
 
 # registration()
+# set_new_user_password()
 
 authorized_user = authorization()
 user_id = authorized_user.data_user['user']['id']
 username = authorized_user.data_user['user']['username']
 
-words = authorized_user.get_words(username, 'days of week')
+words = authorized_user.get_words(username, 'irregular_verbs')
 
+p = 'K3PBci9wtu'
+m = 'nstanislass@gmail.com'
+#
 for original, translate in words:
     print(f'{original} - {translate}')
 
