@@ -19,6 +19,6 @@ def area(a: int, b: int, c: int) -> float:
     return s
 
 
-a, b, c = (int(input()) for _ in range(3))
-print(perimeter(a, b, c))
-print(area(a, b, c))
+a, b, c = (int(input(f'Enter {side}: ')) for side in 'abc')
+print(f'perimetr of a triangle = {perimeter(a, b, c)}')
+print(f'area of a triangle = {area(a, b, c)}')
