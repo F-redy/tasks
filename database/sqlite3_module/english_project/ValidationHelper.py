@@ -9,25 +9,53 @@ symbols = re.escape(punctuation)
 
 class ValidationHelper:
 
-    @staticmethod
-    def clean_string(string: str) -> str:
+    @classmethod
+    def clean_string(cls, string: str) -> str:
+        cls.check_type_obj(string, str, '"string" must be str!')
         return string.lower().strip()
+
+    @staticmethod
+    def check_type_obj(obj: any, expected_type: type, error_message: str) -> None:
+        """
+        Проверяет, соответствует ли тип объекта ожидаемому типу, и вызывает исключение TypeError при несоответствии.
+
+        Args:
+            obj (any): Объект, тип которого требуется проверить.
+            expected_type (type): Ожидаемый тип объекта.
+            error_message (str): Сообщение об ошибке, которое будет передано в исключение TypeError.
+
+        Raises:
+            TypeError: В случае, если тип объекта не соответствует ожидаемому типу.
+
+        Returns:
+            None
+        """
+        if not isinstance(error_message, str):
+            raise TypeError('error_message must be str!')
+        if (expected_type == int and not type(obj) == int) or not isinstance(obj, expected_type):
+            raise TypeError(error_message)
 
     @classmethod
     def generation_password(cls, length_password: int = 12):
+        cls.check_type_obj(length_password, int, 'length_password must be int!')
+
         while True:
             password = "".join(choices(ascii_letters + digits + symbols, k=length_password))
 
             if cls.is_valid_created_password(password):
                 return password
 
-    @staticmethod
-    def hash_password(password: str) -> str:
+    @classmethod
+    def hash_password(cls, password: str) -> str:
+        cls.check_type_obj(password, str, 'password must be string!')
         return generate_password_hash(password)
 
-    @staticmethod
-    def email_verification(email: str):
+    @classmethod
+    def email_verification(cls, email: str):
+        cls.check_type_obj(email, str, 'email must be string!')
+
         pattern = r"^([\w.\-]{3,})@([\w.\-]{2,})\.([a-z]{2,})$"
+
         result = re.search(pattern, email)
 
         if result and len(email) < 321:
@@ -45,6 +73,8 @@ class ValidationHelper:
         - Может начинаться только с:  a-z, A-Z, 0-9.
         - Может заканчиваться только на a-z, A-Z, 0-9
         """
+        cls.check_type_obj(entered_username, str, 'username must be string!')
+
         pattern = re.compile(r"^[\da-zA-Z][_\-]*[\da-zA-Z]{2,31}")
         return bool(pattern.fullmatch(entered_username.strip()))
 
@@ -64,6 +94,8 @@ class ValidationHelper:
             [a-zA-Z\d{symbols}]{8,}  # Символы из указанных классов и длина не менее 8
             $                   # Конец строки
         """)
+        cls.check_type_obj(entered_password, str, 'entered_password must be string!')
+
         return bool(re.match(pattern, entered_password))
 
     @classmethod
@@ -86,6 +118,8 @@ class ValidationHelper:
         #     return 'Password must contain at least 1 digit!'
         #
         # return True
+        cls.check_type_obj(password, str, 'password must be string!')
+
         return all([any(map(func, password)) for func in [str.isupper, str.islower, str.isdigit]]) and len(password) > 7
 
     @classmethod
@@ -97,10 +131,16 @@ class ValidationHelper:
         :param verified_password: Пароль из базы данных с хешем.
         :return: True если пароли совпадают, иначе False.
         """
+
+        cls.check_type_obj(entered_password, str, 'entered_password must be string!')
+        cls.check_type_obj(verified_password, str, 'verified_password must be string!')
+
         return check_password_hash(verified_password, entered_password)
 
-    @staticmethod
-    def get_slug(other_word: str) -> str:
+    @classmethod
+    def get_slug(cls, other_word: str) -> str:
+        cls.check_type_obj(other_word, str, 'phrase must be string!')
+
         cyrillic_to_latin = {
             'а': 'a', 'б': 'b', 'в': 'v', 'г': 'g', 'д': 'd', 'е': 'e', 'ё': 'yo',
             'ж': 'zh', 'з': 'z', 'и': 'i', 'й': 'i', 'к': 'k', 'л': 'l', 'м': 'm',
