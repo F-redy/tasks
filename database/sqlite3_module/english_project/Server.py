@@ -1,11 +1,7 @@
 import os
-import re
 import sqlite3 as sq
-from random import choice, randint
-from string import ascii_lowercase, ascii_uppercase, digits
 
-import bcrypt
-from FDataBase import FDataBase
+from database.sqlite3_module.english_project.database_operation.FDataBase import FDataBase
 from file_utils import FileHandler
 from ValidationHelper import ValidationHelper
 
@@ -125,8 +121,8 @@ class Server:
         cls.DBASE.add_dictionary(dictionary_title, slug, date_now, user_id)
 
     @classmethod
-    def get_dictionaries(cls, username: str):
-        return cls.DBASE.get_dictionaries(username)
+    def get_dictionaries(cls, user_id: int):
+        return cls.DBASE.get_dictionaries(user_id)
 
     @classmethod
     def get_dictionary(cls, user_id: int, dictionary_title: str):
@@ -134,11 +130,9 @@ class Server:
         return cls.DBASE.get_dictionary(user_id, dictionary_title)
 
     @classmethod
-    def add_pair(cls, original: str, translate: str, dictionary_title: str, username: str):
-        dict_title, username = [cls.Helper.clean_string(word) for word in (dictionary_title, username)]
+    def add_pair(cls, original: str, translate: str, dictionary_title: str, user_id: int, dictionary_id: int):
         date_now = cls.Helper.get_time_now()
-
-        cls.DBASE.add_pair(original, translate, dictionary_title, username, date_now)
+        cls.DBASE.add_pair(original, translate, dictionary_title, dictionary_id, user_id, date_now)
 
     @staticmethod
     def get_words_from_file(path_to_file: str, separator: str = ' - ') -> list[tuple[str, str]]:
@@ -148,17 +142,13 @@ class Server:
         return words
 
     @classmethod
-    def add_words(cls, words: list[tuple[str, str]], dict_title: str, username: str):
-        dict_title, username = [cls.Helper.clean_string(word) for word in (dict_title, username)]
+    def add_words(cls, words: list[tuple[str, str]], dict_title: str, dict_id: int, user_id: int):
         date_now = cls.Helper.get_time_now()
-
-        cls.DBASE.add_words(words, dict_title, username, date_now)
+        cls.DBASE.add_words(words, dict_title, dict_id, user_id, date_now)
 
     @classmethod
-    def get_words(cls, username: str, dict_title: str):
-        dict_title, username = [cls.Helper.clean_string(word) for word in (dict_title, username)]
-
-        return cls.DBASE.get_words(username, dict_title)
+    def get_words(cls, user_id: int, dictionary_id: int):
+        return cls.DBASE.get_words(user_id, dictionary_id)
 
 
 create_db()
