@@ -4,7 +4,7 @@ from FDataBase import BaseDataBase
 class DictionaryDataBase(BaseDataBase):
 
     def add_dictionary(self, dictionary_name: str, dictionary_slug: str, date_now: str, user_id: int):
-        query = """INSERT OR IGNORE INTO dictionaries values (NULL, ?, ?, ?, ?, ?) """
+        query = """INSERT INTO dictionaries values (NULL, ?, ?, ?, ?, ?) """
 
         self.__cursor.execute(query, (dictionary_name, dictionary_slug, date_now, date_now, user_id))
         self.__db.commit()

@@ -6,7 +6,7 @@ from FDataBase import BaseDataBase
 class UserDataBase(BaseDataBase):
 
     def add_user(self, username: str, hashed_password: str, verified_email: str) -> dict[str: str | int]:
-        query = """INSERT OR IGNORE INTO users values (NULL, ?, ?, ?, NULL)"""
+        query = """INSERT INTO users values (NULL, ?, ?, ?, NULL)"""
 
         self.__cursor.execute(query, (username, hashed_password, verified_email))
         self.__db.commit()
