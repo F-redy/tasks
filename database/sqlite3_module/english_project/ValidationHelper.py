@@ -11,7 +11,7 @@ class ValidationHelper:
 
     @classmethod
     def clean_string(cls, string: str) -> str:
-        cls.check_type_obj(string, str, '"string" must be str!')
+        cls.check_type_obj(string, str, '"string" must be type str!')
         return string.lower().strip()
 
     @staticmethod
@@ -31,13 +31,13 @@ class ValidationHelper:
             None
         """
         if not isinstance(error_message, str):
-            raise TypeError('error_message must be str!')
+            raise TypeError('"error_message" must be type str!')
         if (expected_type == int and not type(obj) == int) or not isinstance(obj, expected_type):
             raise TypeError(error_message)
 
     @classmethod
     def generation_password(cls, length_password: int = 12):
-        cls.check_type_obj(length_password, int, 'length_password must be int!')
+        cls.check_type_obj(length_password, int, '"length_password" must be type int!')
 
         while True:
             password = "".join(choices(ascii_letters + digits + symbols, k=length_password))
@@ -47,12 +47,12 @@ class ValidationHelper:
 
     @classmethod
     def hash_password(cls, password: str) -> str:
-        cls.check_type_obj(password, str, 'password must be string!')
+        cls.check_type_obj(password, str, '"password" must be type str!')
         return generate_password_hash(password)
 
     @classmethod
     def email_verification(cls, email: str):
-        cls.check_type_obj(email, str, 'email must be string!')
+        cls.check_type_obj(email, str, '"email" must be type str!')
 
         pattern = r"^([\w.\-]{3,})@([\w.\-]{2,})\.([a-z]{2,})$"
 
@@ -73,7 +73,7 @@ class ValidationHelper:
         - Может начинаться только с:  a-z, A-Z, 0-9.
         - Может заканчиваться только на a-z, A-Z, 0-9
         """
-        cls.check_type_obj(entered_username, str, 'username must be string!')
+        cls.check_type_obj(entered_username, str, '"entered_username" must be type str!')
 
         pattern = re.compile(r"^[\da-zA-Z][_\-]*[\da-zA-Z]{2,31}")
         return bool(pattern.fullmatch(entered_username.strip()))
@@ -94,7 +94,7 @@ class ValidationHelper:
             [a-zA-Z\d{symbols}]{8,}  # Символы из указанных классов и длина не менее 8
             $                   # Конец строки
         """)
-        cls.check_type_obj(entered_password, str, 'entered_password must be string!')
+        cls.check_type_obj(entered_password, str, '"entered_password" must be type str!')
 
         return bool(re.match(pattern, entered_password))
 
@@ -118,7 +118,7 @@ class ValidationHelper:
         #     return 'Password must contain at least 1 digit!'
         #
         # return True
-        cls.check_type_obj(password, str, 'password must be string!')
+        cls.check_type_obj(password, str, '"password" must be type str!')
 
         return all([any(map(func, password)) for func in [str.isupper, str.islower, str.isdigit]]) and len(password) > 7
 
@@ -132,14 +132,14 @@ class ValidationHelper:
         :return: True если пароли совпадают, иначе False.
         """
 
-        cls.check_type_obj(entered_password, str, 'entered_password must be string!')
-        cls.check_type_obj(verified_password, str, 'verified_password must be string!')
+        cls.check_type_obj(entered_password, str, '"entered_password" must be type str!')
+        cls.check_type_obj(verified_password, str, '"verified_password" must be type str!')
 
         return check_password_hash(verified_password, entered_password)
 
     @classmethod
     def get_slug(cls, other_word: str) -> str:
-        cls.check_type_obj(other_word, str, 'phrase must be string!')
+        cls.check_type_obj(other_word, str, '"phrase" must be type str!')
 
         cyrillic_to_latin = {
             'а': 'a', 'б': 'b', 'в': 'v', 'г': 'g', 'д': 'd', 'е': 'e', 'ё': 'yo',
