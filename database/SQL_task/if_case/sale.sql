@@ -28,17 +28,23 @@
 +------------------+-----------------------+-----------+
  */
 
-/* через IF */
-SELECT author, title,
-ROUND(
-    IF(author = 'Булгаков М.А.', price + price * 0.10, IF(author = 'Есенин С.А.', price + price * 0.05, price)),
-    2) AS new_price
+/* через IF (только для SQL) */
+SELECT author,
+       title,
+       ROUND(
+               IF(author = 'Булгаков М.А.', price + price * 0.10,
+                  IF(author = 'Есенин С.А.', price + price * 0.05, price)),
+               2) AS new_price
 FROM book;
 
+
 /* через case */
-select author, title,
-round(case author
-    when "Булгаков М.А." then price * 1.1
-    when "Есенин С.А." then price * 1.05
-    else price end, 2) as new_price
-from book;
+SELECT author,
+       title,
+       ROUND(
+               CASE
+                   WHEN author = 'Булгаков М.А.' THEN price + price * 0.10
+                   WHEN author = 'Есенин С.А.' THEN price + price * 0.05
+                   ELSE price
+                   END, 2) AS new_price
+FROM book;
