@@ -31,4 +31,4 @@
 
 SELECT title
 FROM book
-WHERE title LIKE "_____";
+WHERE title LIKE '_____';
