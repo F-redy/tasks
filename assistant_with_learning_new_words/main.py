@@ -14,6 +14,7 @@ STARTING_WORD_COUNT = 5  # Количество слов в каждом кру�
 START_POINT = 0  # Начальное количество очков
 STAGE = 1  # Сколько раз уже прошли по словарю
 STEP = 1  # Сколько раз повторялись слова на круге
+MAX_REPEAT = 4
 
 
 def paint(text: str, color: str) -> str:
@@ -80,7 +81,7 @@ def read_words(words: dict) -> dict:
     print(f'\n{" ":<60} {paint(f"level: {STAGE}", "violet")}{paint(f" | step: {STEP}", "violet")}\n')
     for (en, ru), point in words.items():
         question = input(f'{paint("Enter translation for", "light_blue")} "{italics(ru)}": ').strip().lower()
-        
+
         if question == en.strip().lower():
             words[(en, ru)] += 1
             print_message("Right", en, ru, point, 'green')
@@ -99,6 +100,7 @@ def check_point(words: dict) -> dict:
     :return: A dictionary containing word pairs and their point values, filtered based on the point threshold.
              Returns None if no word pairs need to be repeated.
     """
+
     go_repeat = {}
     for pair, point in words.items():
         if point < NEXT_LVL_POINT:
@@ -115,6 +117,7 @@ def get_new_pair() -> tuple[str, str]:
     :return: A tuple containing the new word pair, where the first element is the original word or phrase,
              and the second element is its translation.
     """
+
     new_word = choice(some_words)
     print(f'{" ":>35}'
           f'{paint("new pair:", "yellow")}'
@@ -152,24 +155,26 @@ some_words = [
     ('exhausted', 'истощенный, изнуренный, измученный, обессиленный'), ('descending', 'убывающий'),
     ('ascending', 'возрастающий'), ('waste', 'напрасно тратить')]
 
-words_to_learn = start_game()
-common_words = {}
+if __name__ == "__main__":
+    words_to_learn = start_game()
+    common_words = {}
 
-while True:
-    words_to_learn = read_words(words_to_learn)
-    words_to_learn = check_point(words_to_learn)
-    match words_to_learn:
-        case dict():
-            STEP += 1
-            words_to_learn = read_words(words_to_learn)
-        case None if some_words:
-            STEP = 1
-            words_to_learn = start_game()
-        case None if not some_words:
-            STEP = 1
-            STAGE += 1
-            some_words = common_words
-            words_to_learn = start_game()
-            common_words = {}
-        case _:
-            break
+    while STAGE < MAX_REPEAT:
+        words_to_learn = read_words(words_to_learn)
+        words_to_learn = check_point(words_to_learn)
+
+        match words_to_learn:
+            case dict():
+                STEP += 1
+                words_to_learn = read_words(words_to_learn)
+            case None if some_words:
+                STEP = 1
+                words_to_learn = start_game()
+            case None if not some_words:
+                STEP = 1
+                STAGE += 1
+                some_words = common_words
+                words_to_learn = start_game()
+                common_words = {}
+            case _:
+                break
