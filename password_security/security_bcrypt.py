@@ -1,5 +1,4 @@
 import bcrypt
-
 from generation_random_password import generation_random_password
 
 

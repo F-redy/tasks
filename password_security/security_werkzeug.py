@@ -1,6 +1,5 @@
-from werkzeug.security import generate_password_hash, check_password_hash
-
 from generation_random_password import generation_random_password
+from werkzeug.security import check_password_hash, generate_password_hash
 
 
 def generation_random_hash_password(length_password: int):

@@ -61,8 +61,8 @@
 # Sample Output
 # DEXTER <dexter@hotmail.com>
 
-import re
 import email.utils
+import re
 
 
 def check_email(e_mail) -> bool:

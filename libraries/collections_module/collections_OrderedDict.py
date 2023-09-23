@@ -35,8 +35,8 @@
 # CANDY 20
 
 
-from collections import OrderedDict
 import re
+from collections import OrderedDict
 
 items = OrderedDict()
 

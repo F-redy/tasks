@@ -13,6 +13,7 @@
 # Строка с am, заменённым на pm, и pm, заменённым на am.
 
 import re
+
 from regix_module.test_regex import test_regex
 
 test_case = [

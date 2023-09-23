@@ -1,6 +1,6 @@
 import random
-import string
 import secrets
+import string
 
 
 # Генерация простого пароля

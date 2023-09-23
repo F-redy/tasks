@@ -14,7 +14,8 @@
 # Выходные данные:
 # Найденный текст.
 
-import re, sys
+import re
+import sys
 
 test_case = [
     ("""start
