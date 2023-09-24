@@ -18,7 +18,7 @@ def generation_numbers(length_number: int):
     return "".join(str(randint(0, 9)) for _ in range(length_number))
 
 
-def generation_phones_numbers(operators: list[str], codes: list[str], count_phones: int) -> Generator[str, None, None]:
+def generator_phones_numbers(operators: list[str], codes: list[str], count_phones: int) -> Generator[str, None, None]:
     for _ in range(count_phones):
         random_code = codes[randint(0, len(codes) - 1)]
         operator = operators[randint(0, len(operators) - 1)]
@@ -27,12 +27,25 @@ def generation_phones_numbers(operators: list[str], codes: list[str], count_phon
         yield random_code + operator + number
 
 
-if __name__ == '__main__':
-    random_operators = ["".join(str(randint(0, 9)) for _ in range(3)) for _ in range(25)]
-    random_code_country = ["".join(str(randint(0, 9)) for _ in range(randint(1, 2))) for _ in range(5)]
+def generate_random_codes(length_code_operator: int = 3,
+                          min_length_code_country: int = 1,
+                          max_length_code_country: int = 5,
+                          count_operators: int = 25,
+                          count_code: int = 5):
+    random_operators = ["".join(str(randint(0, 9)) for _ in range(length_code_operator))
+                        for _ in range(count_operators)]
 
-    test_numbers = generation_phones_numbers(codes_operators, codes_county, 100)
-    test_random_numbers = generation_phones_numbers(random_operators, random_code_country, 200)
+    random_code_country = ["".join(str(randint(0, 9))
+                                   for _ in range(randint(min_length_code_country, max_length_code_country)))
+                           for _ in range(count_code)]
+
+    return random_operators, random_code_country
+
+
+if __name__ == '__main__':
+
+    test_numbers = generator_phones_numbers(codes_operators, codes_county, 100)
+    test_random_numbers = generator_phones_numbers(*generate_random_codes(), 200)
 
     for phone_number in test_numbers:
         print(phone_number)
